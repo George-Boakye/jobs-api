@@ -26,7 +26,7 @@ export const addCompany = (req, res) => {
     password,
   });
   res.status(201).send({
-    message: `${name} your account was created successfully`,
+    message: `your company, ${name} was created successfully`,
     data: usersData,
   });
 };

@@ -17,3 +17,10 @@ export const userSignInSchema =  Joi.object({
  email:Joi.string().email().required(),
  password:Joi.string().required(),
 })
+
+export const jobSchema = Joi.object({
+    name:Joi.string().required(),
+    description:Joi.string().required(),
+    category:[Joi.string().required()],
+    company:Joi.string().required(),
+})

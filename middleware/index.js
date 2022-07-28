@@ -1,7 +1,4 @@
-import {
-  userSignUpSchema,
-  userSignInSchema,
-} from "./validation.js";
+import { userSignUpSchema, userSignInSchema } from "./validation.js";
 import { usersData } from "../data.js";
 
 export const validateUser = (req, res, next) => {
@@ -16,14 +13,24 @@ export const validateUser = (req, res, next) => {
 
 export const validateUserSignin = (req, res, next) => {
   const { error } = userSignInSchema.validate(req.body);
+  const user = usersData.find((user) => user.email == req.body.email);
   if (error) {
     return res.status(400).send({
       error,
     });
   }
-  const user = usersData.find(
-    (user) => user.email == req.body.email && user.password == req.body.password
-  );
+  if (user) {
+    if (user.password !== req.body.password) {
+      return res.status(400).send({
+        message: "Incorrect Password",
+      });
+    }
+  }
+  if (!user) {
+    return res.status(404).send({
+      message: "User not found",
+    });
+  }
   req.user = user;
   next();
 };
