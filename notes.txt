@@ -1,0 +1,4 @@
+Features
+-User authentication
+-get all jobs available 
+-search by a category
