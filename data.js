@@ -27,20 +27,20 @@ export const jobData = [
     name: "Frontend developer",
     description: "Candidate should be able to able to work with react or vue",
     category:['engineer', 'IT', 'developer'],
-    comapany: "Facebook",
+    company: "Facebook",
   },
   {
     id: 2,
     name: "Teacher",
     description: "Preparing lesson plans and educating students at all levels",
     category: ['teaching'],
-    comapany: "KNUST",
+    company: "KNUST",
   },
   {
     id: 3,
     name: "Administrative Assistant",
     description: "Assist with the day to day operations of an office",
     category: ['office', 'admin'],
-    comapany: "Newmont Ghana",
+    company: "Newmont Ghana",
   },
 ];

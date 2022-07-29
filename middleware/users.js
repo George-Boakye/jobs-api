@@ -3,9 +3,15 @@ import { usersData } from "../data.js";
 
 export const validateUser = (req, res, next) => {
   const { error } = userSignUpSchema.validate(req.body);
+  const user = usersData.find((user) => user.email == req.body.email);
   if (error) {
     return res.status(400).send({
       error,
+    });
+  }
+  if (user) {
+    return res.status(400).send({
+      message: "User with the same email already exist",
     });
   }
   next();

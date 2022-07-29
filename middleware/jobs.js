@@ -14,7 +14,9 @@ export const checkForJob = (req, res, next) => {
 };
 
 export const checkForJobCategory = (req, res, next) => {
-  const jobs = jobData.filter((job) => job.category.includes(req.params.category));
+  const jobs = jobData.filter((job) =>
+    job.category.includes(req.params.category)
+  );
   if (!jobs) {
     return res.status(404).send({
       message: "job not found",
@@ -25,13 +27,12 @@ export const checkForJobCategory = (req, res, next) => {
   next();
 };
 
-
 export const validateJob = (req, res, next) => {
-    const { error } = jobSchema.validate(req.body);
-    if (error) {
-      return res.status(400).send({
-        error,
-      });
-    }
-    next();
-  };
+  const { error } = jobSchema.validate(req.body);
+  if (error) {
+    return res.status(400).send({
+      error,
+    });
+  }
+  next();
+};

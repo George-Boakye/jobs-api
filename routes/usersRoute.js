@@ -4,7 +4,7 @@ import {
   checkForUser,
   validateUserSignin,
   validateCompany
-} from "../middleware/index.js";
+} from "../middleware/users.js";
 import { addUser, getUser, addCompany } from "../controllers/Users.js";
 
 const router = Router();
