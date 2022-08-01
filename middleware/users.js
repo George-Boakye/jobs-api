@@ -1,9 +1,9 @@
 import { userSignUpSchema, userSignInSchema } from "./validation.js";
-import { usersData } from "../data.js";
+import Users from "../models/Users.js";
 
-export const validateUser = (req, res, next) => {
+export const validateUser = async (req, res, next) => {
   const { error } = userSignUpSchema.validate(req.body);
-  const user = usersData.find((user) => user.email == req.body.email);
+  const user = await Users.findOne({email: req.body.email});
   if (error) {
     return res.status(400).send({
       error,
@@ -17,9 +17,9 @@ export const validateUser = (req, res, next) => {
   next();
 };
 
-export const validateUserSignin = (req, res, next) => {
+export const validateUserSignin = async (req, res, next) => {
   const { error } = userSignInSchema.validate(req.body);
-  const user = usersData.find((user) => user.email == req.body.email);
+  const user = await Users.findOne({email: req.body.email});
   if (error) {
     return res.status(400).send({
       error,
@@ -41,8 +41,8 @@ export const validateUserSignin = (req, res, next) => {
   next();
 };
 
-export const checkForUser = (req, res, next) => {
-  const user = usersData.find((user) => user.id == req.params.userId);
+export const checkForUser = async (req, res, next) => {
+  const user = await Users.find({name:req.params.userId});
   if (!user) {
     return res.status(404).send({
       message: "User not found",

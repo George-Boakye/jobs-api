@@ -1,33 +1,30 @@
-import { usersData } from "../data.js";
+import Users from "../models/Users.js";
 
-export const addUser = (req, res) => {
-  const { name, email, age, password } = req.body;
-  const randomId = Math.floor(Math.random() * 1000);
-  usersData.push({
-    id: randomId,
+export const addUser = async (req, res) => {
+  const { name, email,phoneNumber, age, password } = req.body;
+  const user  = await Users.create({
     name,
     email,
     age,
+    phoneNumber,
     password,
   });
-  res.status(201).send({
+  return res.status(201).send({
     message: `${name} your account was created successfully`,
-    data: usersData,
+    data: user,
   });
 };
 
-export const addCompany = (req, res) => {
+export const addCompany = async (req, res) => {
   const { name, email, password } = req.body;
-  const randomId = Math.floor(Math.random() * 1000);
-  usersData.push({
-    id: randomId,
+ const company = await Users.create({
     name,
     email,
     password,
   });
   res.status(201).send({
     message: `your company, ${name} was created successfully`,
-    data: usersData,
+    data: company,
   });
 };
 

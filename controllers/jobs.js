@@ -1,9 +1,10 @@
-import { jobData } from "../data.js";
+import Jobs from "../models/Jobs.js";
 
-export const getAllJob = (req, res) => {
+export const getAllJob = async (req, res) => {
+  const jobs =  await Jobs.find()
   res.status(200).send({
     message: "Jobs fetched successfully",
-    data: jobData,
+    data: jobs,
   });
 };
 
@@ -14,19 +15,18 @@ export const getJob = (req, res) => {
   });
 };
 
-export const addJob = (req, res) => {
-  const { name, description, category, company } = req.body;
-  const randomId = Math.floor(Math.random() * 1000);
-  jobData.push({
-    id: randomId,
+export const addJob = async (req, res) => {
+  const { name, description, category, company, location } = req.body;
+  const job = await Jobs.create({
     name,
     description,
     category,
     company,
+    location
   });
   res.status(201).send({
-    message: `job was created successfully`,
-    data: jobData,
+    message: `job created successfully`,
+    data: job,
   });
 };
 

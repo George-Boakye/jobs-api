@@ -1,8 +1,8 @@
-import { jobData } from "../data.js";
 import { jobSchema } from "./validation.js";
+import Jobs from "../models/Jobs.js";
 
-export const checkForJob = (req, res, next) => {
-  const job = jobData.find((job) => job.id == req.params.id);
+export const checkForJob = async (req, res, next) => {
+  const job = await Jobs.findOne({name: req.params.id});
   if (!job) {
     return res.status(404).send({
       message: "job not found",
@@ -13,10 +13,8 @@ export const checkForJob = (req, res, next) => {
   next();
 };
 
-export const checkForJobCategory = (req, res, next) => {
-  const jobs = jobData.filter((job) =>
-    job.category.includes(req.params.category)
-  );
+export const checkForJobCategory = async (req, res, next) => {
+  const jobs = await Jobs.find({ category: { $in: [req.params.category] } });
   if (!jobs) {
     return res.status(404).send({
       message: "job not found",
