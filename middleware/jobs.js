@@ -2,7 +2,9 @@ import { jobSchema } from "./validation.js";
 import Jobs from "../models/Jobs.js";
 
 export const checkForJob = async (req, res, next) => {
-  const job = await Jobs.findOne({name: req.params.id});
+  console.log(req.params.id)
+  const job = await Jobs.findOne({_id: req.params.id});
+  console.log()
   if (!job) {
     return res.status(404).send({
       message: "job not found",
